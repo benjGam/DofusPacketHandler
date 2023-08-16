@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DofusPacketManager.Networking;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,17 @@ namespace DofusPacketManager
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new NetworkManager();
+            NetworkManager.Instance.OnPacketReceived += Instance_OnPacketReceived;
+        }
+
+        private void Instance_OnPacketReceived(object sender, EventArgs e)
+        {
+            MessageBox.Show("Oui");
         }
     }
 }
