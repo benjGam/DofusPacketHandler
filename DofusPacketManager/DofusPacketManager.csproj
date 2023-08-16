@@ -75,8 +75,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Networking\NetworkManager.cs" />
+    <Compile Include="Networking\PacketArrivedEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\IPAddress.cs" />
     <Compile Include="Utils\IO\BigEndianReader.cs" />
     <Compile Include="Utils\IO\Binary64.cs" />
     <Compile Include="Utils\IO\BooleanByteWrapper.cs" />
