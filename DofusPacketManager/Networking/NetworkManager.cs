@@ -1,19 +1,17 @@
 ﻿using SharpPcap;
 using DofusPacketManager.Utils;
 using System.Linq;
-using System.Windows.Forms;
+using PacketDotNet;
 using System;
-using System.Net;
-using SharpPcap.LibPcap;
-using DofusPacketManager.Utils.IO;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Net.NetworkInformation;
+using System.Threading;
 
 namespace DofusPacketManager.Networking
 {
     public class NetworkManager : Singleton<NetworkManager>
     {
+        #region Global Variables
+        private Thread _sniffingThread;
+        #endregion
         #region Properties
         private string _ipToSniff = string.Empty;
         private ILiveDevice _Device = null;
@@ -34,7 +32,9 @@ namespace DofusPacketManager.Networking
         private void Init()
         {
             _Device = CaptureDeviceList.Instance.ToList().Find((ILiveDevice Device) => Device.Description.ToLower().Contains("realtek")); // Get the real network device
-            this.StartSniffing();
+            _sniffingThread = new Thread(() => this.StartSniffing());
+            _sniffingThread.IsBackground = true;
+            _sniffingThread.Start();
         }
         public void StartSniffing()
         {
@@ -55,22 +55,30 @@ namespace DofusPacketManager.Networking
                 _Device.OnPacketArrival -= Device_OnPacketArrival;
             }
         }
-
         #region Events
         private void Device_OnPacketArrival(object sender, PacketCapture e)
         {
-            
+            TcpPacket recievedPacket = ParsePacketAsTCP(e);
+            if (recievedPacket == null) return;
+            OnPacketArrived(this, new PacketArrivedEventArgs(recievedPacket));
         }
-
-        #endregion
-
-        #region CustomEvents
-        protected virtual void OnPacketArrived(object sender, EventArgs e)
+        private TcpPacket ParsePacketAsTCP(PacketCapture e)
         {
-            OnPacketReceived?.Invoke(this, e);
+            Packet Packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.GetPacket().Data);
+            IPPacket ipPacket = Packet.Extract<IPPacket>();
+            if (ipPacket == null || ipPacket.SourceAddress == IPAddressUtils.GetHostV4Address()) return null;
+            TcpPacket TcpPacket = Packet.Extract<TcpPacket>();
+            return TcpPacket == null || TcpPacket.PayloadData.Length <= 2 ? null : TcpPacket;
+        }
+
+        #endregion
+        #region CustomEvents
+        protected virtual void OnPacketArrived(object sender, PacketArrivedEventArgs e)
+        {
+            if (OnPacketReceived == null) return;
+            OnPacketReceived(this, e);
         }
         #endregion
-
         #region Accessors
         public string TargetedIP
         {
