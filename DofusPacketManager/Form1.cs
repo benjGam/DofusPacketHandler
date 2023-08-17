@@ -22,19 +22,16 @@ namespace DofusPacketManager
             k.MessageBinder.Bind<BasicPingMessage>(PingMessage_OnCreated, Utils.NetworkMessageEventEnum.OnCreated);
             nM.StartSniffing();
         }
-
         private void ChatServerMessage_OnDeserialized(object sender, EventArgs e)
         {
             ChatServerMessage k = (ChatServerMessage)sender;
             this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"{k._content}\n"));
         }
-
         private void PingMessage_OnCreated(object sender, EventArgs e)
         {
             BasicPingMessage k = (BasicPingMessage)sender;
             this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"Je suis un ping\n"));
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             NetworkManager.Instance.StopSniffing();
