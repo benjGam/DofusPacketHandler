@@ -1,4 +1,5 @@
 ﻿using DofusPacketManager.Networking;
+using DofusPacketManager.Networking.Messages;
 using System;
 using System.Windows.Forms;
 
@@ -13,8 +14,7 @@ namespace DofusPacketManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new NetworkManager();
-            NetworkManager.Instance.OnPacketReceived += Instance_OnPacketReceived;
+            new MessageManager();
         }
 
         private void Instance_OnPacketReceived(object sender, EventArgs e)

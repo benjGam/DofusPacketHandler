@@ -4,6 +4,7 @@ using System.Linq;
 using PacketDotNet;
 using System;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace DofusPacketManager.Networking
 {
@@ -14,21 +15,32 @@ namespace DofusPacketManager.Networking
         #endregion
         #region Properties
         private string _ipToSniff = string.Empty;
+        private int _portToSniff = 5555;
         private ILiveDevice _Device = null;
-
         #region Custom Events Declaration
 
         public event EventHandler OnPacketReceived;
 
         #endregion
-
         #endregion
+
+        public NetworkManager() => Init();
         public NetworkManager(string ipToSniff) 
         { 
             _ipToSniff = ipToSniff;
             Init();
         }
-        public NetworkManager() => Init();
+        public NetworkManager(int portToSniff)
+        {
+            _portToSniff = portToSniff;
+            Init();
+        }
+        public NetworkManager(string ipToSniff, int portToSniff) 
+        { 
+            _ipToSniff = ipToSniff;
+            _portToSniff = portToSniff;
+            Init();
+        }
         private void Init()
         {
             _Device = CaptureDeviceList.Instance.ToList().Find((ILiveDevice Device) => Device.Description.ToLower().Contains("realtek")); // Get the real network device
@@ -41,7 +53,7 @@ namespace DofusPacketManager.Networking
             if (!_Device.Started)
             {
                 _Device.Open();
-                _Device.Filter = "tcp port 5555";
+                _Device.Filter = $"tcp port {_portToSniff}";
                 _Device.OnPacketArrival += Device_OnPacketArrival;
                 _Device.StartCapture();
             }
