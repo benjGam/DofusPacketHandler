@@ -32,9 +32,7 @@ namespace DofusPacketManager.Networking.Messages
         public T GetInstance<T>(ushort messageId) where T : NetworkMessage
         {
             Func<object> targetedMessage;
-            if(_messagesConstructors.TryGetValue(messageId, out targetedMessage))
-                return targetedMessage.Invoke() as T;
-            return null;
+            return _messagesConstructors.TryGetValue(messageId, out targetedMessage) ? targetedMessage.Invoke() as T : null;
         }
     }
 }
