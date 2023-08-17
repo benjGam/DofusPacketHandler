@@ -8,8 +8,7 @@ namespace DofusPacketManager.Network.Messages
 {
     public class MessageBinder : Singleton<MessageBinder>
     {
-        private Dictionary<Type, EventHandler> _bindedNetworkMessagesTypes = new Dictionary<Type, EventHandler>();
-        public List<NetworkMessage> _bindedOnDeserialized = new List<NetworkMessage>();
+        private Dictionary<Type, EventKeyPair> _bindedNetworkMessagesTypes = new Dictionary<Type, EventKeyPair>();
 
         public MessageBinder() 
         {
@@ -25,7 +24,7 @@ namespace DofusPacketManager.Network.Messages
         {
             if (!_bindedNetworkMessagesTypes.ContainsKey(typeof(T)))
             {
-                _bindedNetworkMessagesTypes.Add(typeof(T), handler);
+                _bindedNetworkMessagesTypes.Add(typeof(T), new EventKeyPair(eventName, handler));
                 return true;
             }
             return false;
@@ -44,12 +43,14 @@ namespace DofusPacketManager.Network.Messages
         private void Instance_OnMessageRecieved(object sender, NetworkMessageReceivedEventArgs e)
         {
             Type targetedType = e.RecievedMessage.GetType();
-            if (_bindedNetworkMessagesTypes.ContainsKey(targetedType))
+            if (!_bindedNetworkMessagesTypes.ContainsKey(targetedType)) return;
+            foreach (EventInfo eventInfo in targetedType.GetEvents())
             {
-                EventInfo info = targetedType.GetEvent("OnDeserialized");
-                foreach (NetworkMessage ne in _bindedOnDeserialized)
-                    info.RemoveEventHandler(ne, _bindedNetworkMessagesTypes[targetedType]);
-                info.AddEventHandler(e.RecievedMessage, _bindedNetworkMessagesTypes[targetedType]);
+                if (!_bindedNetworkMessagesTypes.ContainsKey(targetedType)) continue;
+                EventKeyPair targetedKeyPair = _bindedNetworkMessagesTypes[targetedType];
+                EventHandler targetedHandler = targetedKeyPair.GetKeyPair(eventInfo.Name);
+                if (targetedHandler != null)
+                    eventInfo.AddEventHandler(e.RecievedMessage, targetedHandler);
             }
         }
     }
