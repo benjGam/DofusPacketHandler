@@ -17,7 +17,7 @@ namespace DofusPacketManager.Network.Messages
 
         private void Init()
         {
-            PacketParser.Instance.OnMessageRecieved += Instance_OnMessageRecieved;
+            PacketParser.Instance.MessageReceived += PacketParser_OnMessageRecieved;
         }
 
         public void Bind<T>(EventHandler handler, NetworkMessageEventEnum eventName) where T : NetworkMessage
@@ -38,7 +38,7 @@ namespace DofusPacketManager.Network.Messages
             return false;
         }
 
-        private void Instance_OnMessageRecieved(object sender, NetworkMessageReceivedEventArgs e)
+        private void PacketParser_OnMessageRecieved(object sender, NetworkMessageReceivedEventArgs e)
         {
             Type targetedType = e.RecievedMessage.GetType();
             if (!_bindedNetworkMessagesTypes.ContainsKey(targetedType)) return;
