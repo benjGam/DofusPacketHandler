@@ -1,5 +1,4 @@
 ﻿using DofusPacketManager.Utils.IO;
-using System.Windows.Forms;
 
 namespace DofusPacketManager.Network.Messages.game.chat
 {
@@ -19,7 +18,6 @@ namespace DofusPacketManager.Network.Messages.game.chat
             _senderName = Reader.ReadUTF();
             _prefix = Reader.ReadUTF();
             _senderAccountId = Reader.ReadInt();
-            MessageBox.Show("Oui");
         }
     }
 }
