@@ -11,14 +11,12 @@ namespace DofusPacketManager.Networking
 {
     public class NetworkManager : Singleton<NetworkManager>
     {
-        #region Global Variables
-        private Thread _sniffingThread;
-        #endregion
-        #region Properties
+        #region Fields
         private string _ipToSniff = string.Empty;
         private int _portToSniff = 5555;
         private ILiveDevice _Device = null;
         private MessageManager _messageManager;
+        private Thread _sniffingThread;
 
         #region Custom Events Declaration
 
@@ -26,6 +24,7 @@ namespace DofusPacketManager.Networking
 
         #endregion
         #endregion
+        #region Constructors
         public NetworkManager() => Init();
         public NetworkManager(string ipToSniff) 
         { 
@@ -43,6 +42,9 @@ namespace DofusPacketManager.Networking
             _portToSniff = portToSniff;
             Init();
         }
+        #endregion
+        #region Methods
+        #region Private Methods
         private void Init()
         {
             _messageManager = MessageManager.Instance; // Link message manager instance to Network manager
@@ -50,6 +52,17 @@ namespace DofusPacketManager.Networking
             _sniffingThread = new Thread(() => this.StartSniffing());
             _sniffingThread.IsBackground = true;
         }
+        private TcpPacket ParsePacketAsTCP(PacketCapture e)
+        {
+            Packet Packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.GetPacket().Data);
+            IPPacket ipPacket = Packet.Extract<IPPacket>();
+            if (ipPacket == null || ipPacket.SourceAddress == IPAddressUtils.GetHostV4Address()) return null;
+            if (_ipToSniff != string.Empty && ipPacket.SourceAddress != IPAddress.Parse(_ipToSniff)) return null;
+            TcpPacket TcpPacket = Packet.Extract<TcpPacket>();
+            return TcpPacket == null || TcpPacket.PayloadData.Length <= 2 ? null : TcpPacket;
+        }
+        #endregion
+        #region Public Methods
         public void StartSniffing()
         {
             if (!_Device.Started)
@@ -69,6 +82,8 @@ namespace DofusPacketManager.Networking
                 _Device.OnPacketArrival -= Device_OnPacketArrival;
             }
         }
+        #endregion
+        #endregion
         #region Events
         private void Device_OnPacketArrival(object sender, PacketCapture e)
         {
@@ -76,25 +91,15 @@ namespace DofusPacketManager.Networking
             if (recievedPacket == null) return;
             OnPacketArrived(this, new PacketArrivedEventArgs(recievedPacket));
         }
-        private TcpPacket ParsePacketAsTCP(PacketCapture e)
-        {
-            Packet Packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.GetPacket().Data);
-            IPPacket ipPacket = Packet.Extract<IPPacket>();
-            if (ipPacket == null || ipPacket.SourceAddress == IPAddressUtils.GetHostV4Address()) return null;
-            if (_ipToSniff != string.Empty && ipPacket.SourceAddress != IPAddress.Parse(_ipToSniff)) return null;
-            TcpPacket TcpPacket = Packet.Extract<TcpPacket>();
-            return TcpPacket == null || TcpPacket.PayloadData.Length <= 2 ? null : TcpPacket;
-        }
-
-        #endregion
-        #region CustomEvents
+        #region Custom Events
         protected virtual void OnPacketArrived(object sender, PacketArrivedEventArgs e)
         {
             if (OnPacketReceived == null) return;
             OnPacketReceived(this, e);
         }
         #endregion
-        #region Accessors
+        #endregion
+        #region Fields Accessors
         public string TargetedIP
         {
             get => _ipToSniff;
