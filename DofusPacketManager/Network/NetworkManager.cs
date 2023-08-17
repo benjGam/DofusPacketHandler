@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Net;
 using DofusPacketManager.Networking.Messages;
+using System.Windows.Forms;
 
 namespace DofusPacketManager.Networking
 {
@@ -46,6 +47,7 @@ namespace DofusPacketManager.Networking
         {
             _messageManager = MessageManager.Instance; // Link message manager instance to Network manager
             _Device = CaptureDeviceList.Instance.ToList().Find((ILiveDevice Device) => Device.Description.ToLower().Contains("realtek")); // Get the real network device
+            _Device.OnPacketArrival += Device_OnPacketArrival;
         }
         private TcpPacket ParsePacketAsTCP(PacketCapture e)
         {
@@ -66,7 +68,6 @@ namespace DofusPacketManager.Networking
                 {
                     _Device.Open();
                     _Device.Filter = $"tcp port {_portToSniff}";
-                    _Device.OnPacketArrival += Device_OnPacketArrival;
                     _Device.StartCapture();
                 }
             });
@@ -75,17 +76,10 @@ namespace DofusPacketManager.Networking
         }
         public void StopSniffing()
         {
-            _sniffingThread = new Thread(() =>
-            {
-                if (_Device.Started)
-                {
-                    _Device.StopCapture();
-                    _Device.Close();
-                    _Device.OnPacketArrival -= Device_OnPacketArrival;
-                }
-            });
-            _sniffingThread.IsBackground = true;
-            _sniffingThread.Start();
+            _Device.OnPacketArrival -= Device_OnPacketArrival;
+            _Device.StopCapture();
+            if (_sniffingThread != null) _sniffingThread.Abort();
+            _sniffingThread = null;
         }
         #endregion
         #endregion

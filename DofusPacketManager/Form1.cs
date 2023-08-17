@@ -14,13 +14,19 @@ namespace DofusPacketManager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new MessageManager();
+            NetworkManager nM = new NetworkManager();
+            nM.OnPacketReceived += NM_OnPacketReceived;
+            nM.StartSniffing();
         }
 
-        private void Instance_OnPacketReceived(object sender, EventArgs e)
+        private void NM_OnPacketReceived(object sender, EventArgs e)
         {
             this.Invoke(new MethodInvoker(() => richTextBox1.Text += "Packet recieved !\n"));
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            NetworkManager.Instance.StopSniffing();
+        }
     }
 }
