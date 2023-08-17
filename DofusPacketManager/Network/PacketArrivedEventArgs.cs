@@ -3,11 +3,11 @@ using PacketDotNet;
 
 namespace DofusPacketManager.Networking
 {
-    public class PacketArrivedEventArgs : EventArgs
+    public class PacketRecievedEventArgs : EventArgs
     {
         private TcpPacket _packet;
 
-        public PacketArrivedEventArgs(TcpPacket recievedPacket)
+        public PacketRecievedEventArgs(TcpPacket recievedPacket)
         {
             _packet = recievedPacket;
         }

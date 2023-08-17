@@ -18,7 +18,7 @@ namespace DofusPacketManager.Networking
         private MessageManager _messageManager;
         private Thread _sniffingThread;
         #region Custom Events Declaration
-        public event EventHandler<PacketArrivedEventArgs> packetReceivedEvent;
+        public event EventHandler<PacketRecievedEventArgs> _packetReceivedEvent;
         #endregion
         #endregion
         #region Constructors
@@ -87,12 +87,12 @@ namespace DofusPacketManager.Networking
         {
             TcpPacket recievedPacket = ParsePacketAsTCP(e);
             if (recievedPacket == null) return;
-            NetworkManager_OnPacketRecieved(this, new PacketArrivedEventArgs(recievedPacket));
+            NetworkManager_OnPacketRecieved(this, new PacketRecievedEventArgs(recievedPacket));
         }
         #region Custom Events
-        protected virtual void NetworkManager_OnPacketRecieved(object sender, PacketArrivedEventArgs e)
+        protected virtual void NetworkManager_OnPacketRecieved(object sender, PacketRecievedEventArgs e)
         {
-            if (packetReceivedEvent != null) packetReceivedEvent(this, e);
+            if (_packetReceivedEvent != null) _packetReceivedEvent(this, e);
         }
         #endregion
         #endregion
