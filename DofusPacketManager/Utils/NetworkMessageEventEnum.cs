@@ -2,7 +2,7 @@
 {
     public enum NetworkMessageEventEnum
     {
-        OnCreated,
-        OnDeserialized
+        Initialized,
+        Deserialized
     }
 }

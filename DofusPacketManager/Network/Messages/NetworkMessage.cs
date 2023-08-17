@@ -8,8 +8,8 @@ namespace DofusPacketManager.Networking.Messages
     {
         #region Properties
         #region Custom Events Declarations
-        public event EventHandler OnCreated;
-        public event EventHandler OnDeserialized;
+        public event EventHandler Initialized;
+        public event EventHandler Deserialized;
         #endregion 
         public abstract ushort MessageID { get; }
         public abstract bool InstanceID { get; }
@@ -19,7 +19,7 @@ namespace DofusPacketManager.Networking.Messages
             new Thread(() =>
             {
                 Thread.Sleep(1);
-                NetworkMessage_OnCreated(this, EventArgs.Empty);
+                NetworkMessage_OnInitialized(this, EventArgs.Empty);
             }).Start();
         }
         #endregion
@@ -28,8 +28,7 @@ namespace DofusPacketManager.Networking.Messages
         public void Deserialize(IDataReader Reader)
         {
             DeserializeMessage(Reader);
-            NetworkMessage_Deserialized(this, EventArgs.Empty);
-            OnDeserialized = null; //Unbind handlers
+            NetworkMessage_OnDeserialized(this, EventArgs.Empty);
         }
         #endregion
         #region Protected Abstract
@@ -37,15 +36,14 @@ namespace DofusPacketManager.Networking.Messages
         #endregion
         #endregion
         #region Custom Events
-        protected virtual void NetworkMessage_Deserialized(object sender, EventArgs e)
+        protected virtual void NetworkMessage_OnDeserialized(object sender, EventArgs e)
         {
-            if (OnDeserialized != null)
-                OnDeserialized(this, e);
+            if (Deserialized != null) Deserialized(this, e);
+            Deserialized = null; //Unbind handlers
         }
-        protected virtual void NetworkMessage_OnCreated(object sender, EventArgs e)
+        protected virtual void NetworkMessage_OnInitialized(object sender, EventArgs e)
         {
-            if (OnCreated != null)
-                OnCreated(this, e);
+            if (Initialized != null) Initialized(this, e);
         }
         #endregion
     }
