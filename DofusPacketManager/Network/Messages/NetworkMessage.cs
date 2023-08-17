@@ -1,5 +1,5 @@
-﻿using System;
-using System.Data;
+﻿using DofusPacketManager.Utils.IO;
+using System;
 
 namespace DofusPacketManager.Networking.Messages
 {
@@ -14,14 +14,17 @@ namespace DofusPacketManager.Networking.Messages
         public abstract bool InstanceID { get; }
         #endregion
         #region Constructors
-        public NetworkMessage() => OnCreated(this, EventArgs.Empty);
+        public NetworkMessage() {
+            if (OnCreated != null) 
+                OnCreated(this, EventArgs.Empty);
+        }
         #endregion
         #region Methods
         #region Public Methods
         public void Deserialize(IDataReader Reader)
         {
             DeserializeMessage(Reader);
-            OnDeserialized(this, EventArgs.Empty);
+            if (OnDeserialized != null) OnDeserialized(this, EventArgs.Empty);
         }
         #endregion
         #region Protected Abstract

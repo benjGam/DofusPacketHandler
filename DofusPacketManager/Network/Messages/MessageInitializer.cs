@@ -17,8 +17,8 @@ namespace DofusPacketManager.Networking.Messages
         {
             foreach (Type Type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                if (Type.BaseType != typeof(NetworkMessage) || Type.IsAbstract) continue;
-                RegisterConstructor(Type);
+                if (Type.GetOldestParent() != typeof(NetworkMessage) || Type.IsAbstract) continue;
+                    RegisterConstructor(Type);
             }
         }
         private void RegisterConstructor(Type Type)
@@ -31,8 +31,10 @@ namespace DofusPacketManager.Networking.Messages
         public ReadOnlyCollection<Func<object>> MessagesConstructors => _messagesConstructors.Values.ToList().AsReadOnly();
         public T GetInstance<T>(ushort messageId) where T : NetworkMessage
         {
-            Func<object> targetedMessage = _messagesConstructors[messageId];
-            return targetedMessage == null ? null : targetedMessage.Invoke() as T;
+            Func<object> targetedMessage;
+            if(_messagesConstructors.TryGetValue(messageId, out targetedMessage))
+                return targetedMessage.Invoke() as T;
+            return null;
         }
     }
 }
