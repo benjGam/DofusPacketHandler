@@ -1,4 +1,5 @@
 ﻿using DofusPacketManager.Network.Messages;
+using DofusPacketManager.Network.Messages.common;
 using DofusPacketManager.Network.Messages.game.chat;
 using DofusPacketManager.Networking;
 using DofusPacketManager.Networking.Messages;
@@ -18,7 +19,8 @@ namespace DofusPacketManager
         {
             NetworkManager nM = new NetworkManager();
             MessageManager k = MessageManager.Instance;
-            k.MessageBinder.Bind<ChatServerMessage>(ChatServerMessage_OnDeserialized, "OnDeserialized");
+            ///k.MessageBinder.Bind<ChatServerMessage>(ChatServerMessage_OnDeserialized, "OnDeserialized");
+            k.MessageBinder.Bind<BasicPingMessage>(PingMessage_OnCreated, "OnCreated");
             nM.StartSniffing();
         }
 
@@ -26,6 +28,12 @@ namespace DofusPacketManager
         {
             ChatServerMessage k = (ChatServerMessage)sender;
             this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"{k._content}\n"));
+        }
+
+        private void PingMessage_OnCreated(object sender, EventArgs e)
+        {
+            BasicPingMessage k = (BasicPingMessage)sender;
+            this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"Je suis un ping\n"));
         }
 
         private void button2_Click(object sender, EventArgs e)
