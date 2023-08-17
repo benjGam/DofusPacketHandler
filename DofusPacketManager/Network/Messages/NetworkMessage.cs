@@ -7,8 +7,8 @@ namespace DofusPacketManager.Networking.Messages
     {
         #region Properties
         #region Custom Events Declarations
-        public EventHandler OnCreated;
-        public EventHandler OnDeserialized;
+        public event EventHandler OnCreated;
+        public event EventHandler OnDeserialized;
         #endregion 
         public abstract ushort MessageID { get; }
         public abstract bool InstanceID { get; }
