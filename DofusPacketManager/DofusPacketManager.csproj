@@ -99,6 +99,7 @@
     <Compile Include="Utils\IO\CustomInt64.cs" />
     <Compile Include="Utils\IO\CustomUInt64.cs" />
     <Compile Include="Utils\IO\IDataReader.cs" />
+    <Compile Include="Utils\NetworkMessageEventEnum.cs" />
     <Compile Include="Utils\PacketArrivedEventArgs.cs" />
     <Compile Include="Utils\Singleton.cs" />
     <EmbeddedResource Include="Form1.resx">

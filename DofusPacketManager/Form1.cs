@@ -19,8 +19,7 @@ namespace DofusPacketManager
         {
             NetworkManager nM = new NetworkManager();
             MessageManager k = MessageManager.Instance;
-            ///k.MessageBinder.Bind<ChatServerMessage>(ChatServerMessage_OnDeserialized, "OnDeserialized");
-            k.MessageBinder.Bind<BasicPingMessage>(PingMessage_OnCreated, "OnCreated");
+            k.MessageBinder.Bind<BasicPingMessage>(PingMessage_OnCreated, Utils.NetworkMessageEventEnum.OnCreated);
             nM.StartSniffing();
         }
 
