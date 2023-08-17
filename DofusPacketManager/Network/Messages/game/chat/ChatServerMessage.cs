@@ -11,9 +11,9 @@ namespace DofusPacketManager.Network.Messages.game.chat
         public string _prefix;
         public int _senderAccountId;
 
-        protected override void DeserializeMessage(IDataReader Reader)
+        protected new void DeserializeMessage(IDataReader Reader)
         {
-            base.DeserializeMessage(Reader);
+            base.Deserialize(Reader);
             _senderId = Reader.ReadDouble();
             _senderName = Reader.ReadUTF();
             _prefix = Reader.ReadUTF();

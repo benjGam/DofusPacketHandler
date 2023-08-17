@@ -1,4 +1,5 @@
-﻿using DofusPacketManager.Network.Messages.game.chat;
+﻿using DofusPacketManager.Network.Messages;
+using DofusPacketManager.Network.Messages.game.chat;
 using DofusPacketManager.Networking;
 using DofusPacketManager.Networking.Messages;
 using System;
@@ -16,23 +17,26 @@ namespace DofusPacketManager
         private void button1_Click(object sender, EventArgs e)
         {
             NetworkManager nM = new NetworkManager();
-            PacketParser.Instance.OnMessageRecieved += PacketParser_OnMessageRecieved;
+            MessageManager k = MessageManager.Instance;
+            k.MessageBinder.On<ChatServerMessage>(Test);
             nM.StartSniffing();
         }
 
-        private void PacketParser_OnMessageRecieved(object sender, Network.Messages.NetworkMessageReceivedEventArgs e)
+        private object Test()
         {
-            e.RecievedMessage.OnDeserialized += RecievedMessage_OnDeserialized;
-        }
-
-        private void RecievedMessage_OnDeserialized(object sender, EventArgs e)
-        {
-            MessageBox.Show("Test");
+            MessageBox.Show("J'affiche un test quand je reçoi le message");
+            return null;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             NetworkManager.Instance.StopSniffing();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBinder d = new MessageBinder();
+            d.On<ChatServerMessage>(Test);
         }
     }
 }

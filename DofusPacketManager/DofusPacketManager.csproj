@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Network\Messages\game\chat\ChatAbstractServerMessage.cs" />
     <Compile Include="Network\Messages\game\chat\ChatServerMessage.cs" />
+    <Compile Include="Network\Messages\MessageBinder.cs" />
     <Compile Include="Network\Messages\NetworkMessageInformations.cs" />
     <Compile Include="Network\Messages\MessageInitializer.cs" />
     <Compile Include="Network\Messages\MessageManager.cs" />
