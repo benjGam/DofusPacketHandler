@@ -18,11 +18,11 @@ namespace DofusPacketManager
         {
             NetworkManager nM = new NetworkManager();
             MessageManager k = MessageManager.Instance;
-            k.MessageBinder.Bind<ChatServerMessage>(Test, "OnDeserialized");
+            k.MessageBinder.Bind<ChatServerMessage>(ChatServerMessage_OnDeserialized, "OnDeserialized");
             nM.StartSniffing();
         }
 
-        private void Test(object sender, EventArgs e)
+        private void ChatServerMessage_OnDeserialized(object sender, EventArgs e)
         {
             ChatServerMessage k = (ChatServerMessage)sender;
             this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"{k._content}\n"));
