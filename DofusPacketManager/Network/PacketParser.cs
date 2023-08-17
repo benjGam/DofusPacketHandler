@@ -21,7 +21,9 @@ namespace DofusPacketManager.Networking.Messages
         {
             IDataReader Reader = new BigEndianReader(TcpPacket.PayloadData);
             NetworkMessageInformations messageInformations = GetMessageInformations(Reader);
-            ParsePacketAsMessage(messageInformations);
+            NetworkMessage recievedMessage = ParsePacketAsMessage(messageInformations);
+            if (recievedMessage != null)
+                recievedMessage.Deserialize(Reader);
         }
         private NetworkMessage ParsePacketAsMessage(NetworkMessageInformations messageInformations)
         {

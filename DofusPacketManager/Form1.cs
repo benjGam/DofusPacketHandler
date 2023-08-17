@@ -27,8 +27,7 @@ namespace DofusPacketManager
 
         private void RecievedMessage_OnDeserialized(object sender, EventArgs e)
         {
-            ChatServerMessage d = (ChatServerMessage)sender;
-            this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"Content : {d._content}\n"));
+            MessageBox.Show("Test");
         }
 
         private void button2_Click(object sender, EventArgs e)

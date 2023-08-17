@@ -24,7 +24,7 @@ namespace DofusPacketManager.Networking.Messages
         public void Deserialize(IDataReader Reader)
         {
             DeserializeMessage(Reader);
-            if (OnDeserialized != null) OnDeserialized(this, EventArgs.Empty);
+            NetworkMessage_Deserialized(this, EventArgs.Empty);
         }
         #endregion
         #region Protected Abstract
@@ -34,8 +34,8 @@ namespace DofusPacketManager.Networking.Messages
         #region Custom Events
         protected virtual void NetworkMessage_Deserialized(object sender, EventArgs e)
         {
-            if (OnDeserialized == null) return;
-            OnDeserialized(this, e);
+            if (OnDeserialized != null)
+                OnDeserialized(this, e);
         }
         protected virtual void NetworkMessage_OnCreated(object sender, EventArgs e)
         {
