@@ -10,15 +10,7 @@ namespace DofusPacketManager.Network.Messages
     {
         private Dictionary<Type, EventKeyPair> _bindedNetworkMessagesTypes = new Dictionary<Type, EventKeyPair>();
 
-        public MessageBinder() 
-        {
-            Init();
-        }
-
-        private void Init()
-        {
-            PacketParser.Instance.MessageReceived += PacketParser_OnMessageRecieved;
-        }
+        public MessageBinder() => PacketParser.Instance.MessageReceived += PacketParser_OnMessageRecieved;
 
         public void Bind<T>(EventHandler handler, NetworkMessageEventEnum eventName) where T : NetworkMessage
         {
