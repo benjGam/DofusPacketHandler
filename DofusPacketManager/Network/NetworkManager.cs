@@ -80,6 +80,7 @@ namespace DofusPacketManager.Networking
             Packet Packet = Packet.ParsePacket(e.GetPacket().LinkLayerType, e.GetPacket().Data);
             IPPacket ipPacket = Packet.Extract<IPPacket>();
             if (ipPacket == null || ipPacket.SourceAddress == IPAddressUtils.GetHostV4Address()) return null;
+            if (_ipToSniff != string.Empty && ipPacket.SourceAddress != IPAddress.Parse(_ipToSniff)) return null;
             TcpPacket TcpPacket = Packet.Extract<TcpPacket>();
             return TcpPacket == null || TcpPacket.PayloadData.Length <= 2 ? null : TcpPacket;
         }
@@ -99,7 +100,11 @@ namespace DofusPacketManager.Networking
             set {
                 IPAddress parsedIp;
                 if (IPAddress.TryParse(_ipToSniff, out parsedIp))
+                {
                     _ipToSniff = value;
+                    return;
+                }
+                _ipToSniff = string.Empty;
             }
         }
 
