@@ -6,7 +6,6 @@ using System;
 using System.Threading;
 using System.Net;
 using DofusPacketManager.Networking.Messages;
-using System.Windows.Forms;
 
 namespace DofusPacketManager.Networking
 {
