@@ -25,7 +25,7 @@ namespace DofusPacketManager
         private void ChatServerMessage_OnDeserialized(object sender, EventArgs e)
         {
             ChatServerMessage k = (ChatServerMessage)sender;
-            this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"{k._content}\n"));
+            this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"{k.Content}\n"));
         }
         private void PingMessage_OnCreated(object sender, EventArgs e)
         {

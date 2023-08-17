@@ -7,17 +7,17 @@ namespace DofusPacketManager.Network.Messages.game.chat
     {
         public override ushort MessageID => 2850;
         public override bool InstanceID => false;
-        public uint _channel;
-        public string _content;
-        public int _timestamp;
-        public string _fingerprint;
+        public uint Channel { get; private set; }
+        public string Content { get; private set; }
+        public int Timestamp { get; private set; }
+        public string Fingerprint { get; private set; }
 
         protected override void DeserializeMessage(IDataReader Reader)
         {
-            _channel = Reader.ReadByte();
-            _content = Reader.ReadUTF();
-            _timestamp = Reader.ReadInt();
-            _fingerprint = Reader.ReadUTF();
+            Channel = Reader.ReadByte();
+            Content = Reader.ReadUTF();
+            Timestamp = Reader.ReadInt();
+            Fingerprint = Reader.ReadUTF();
         }
     }
 }

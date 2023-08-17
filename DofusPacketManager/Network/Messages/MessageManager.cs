@@ -7,15 +7,15 @@ namespace DofusPacketManager.Networking.Messages
     {
         private MessageInitializer _messageInitializer;
         private MessageBinder _messageBinder;
-        private PacketParser _packetParser;
+
         public MessageManager()
         {
             _messageInitializer = MessageInitializer.Instance;
-            _packetParser = PacketParser.Instance;
+            PacketParser = PacketParser.Instance;
             _messageBinder = MessageBinder.Instance;
         }
         public MessageInitializer MessageInitializer => _messageInitializer;
         public MessageBinder MessageBinder => _messageBinder;
-        public PacketParser PacketParser => _packetParser;
+        public PacketParser PacketParser { get; }
     }
 }
