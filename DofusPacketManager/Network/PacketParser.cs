@@ -9,14 +9,14 @@ namespace DofusPacketManager.Networking.Messages
     public class PacketParser : Singleton<PacketParser>
     {
         #region Event Handler Declaration
-        public event EventHandler<NetworkMessageReceivedEventArgs> OnMessageRecieved;
+        public event EventHandler<NetworkMessageReceivedEventArgs> MessageReceived;
         #endregion
         #region Constructors
         public PacketParser() => Init();
         #endregion
         #region Methods
         #region Processing Packet
-        private void Init() => NetworkManager.Instance.OnPacketReceived += Instance_OnPacketReceived;
+        private void Init() => NetworkManager.Instance.PacketReceived += NetworkManager_OnPacketReceived;
         private void ProcessPacket(TcpPacket TcpPacket)
         {
             IDataReader Reader = new BigEndianReader(TcpPacket.PayloadData);
@@ -56,14 +56,13 @@ namespace DofusPacketManager.Networking.Messages
         #endregion
         #region Events
         #region Custom Events
-        protected virtual void OnPacketParsed(object sender, NetworkMessageReceivedEventArgs e) 
+        protected virtual void PacketParser_OnPacketParsed(object sender, NetworkMessageReceivedEventArgs e) 
         {
-            if (OnMessageRecieved != null)
-                OnMessageRecieved(this, e);
+            if (MessageReceived != null) MessageReceived(this, e);
         }
         #endregion
         #region Events Handler
-        private void Instance_OnPacketReceived(object sender, PacketArrivedEventArgs e) => ProcessPacket(e.RecievedPacket);
+        private void NetworkManager_OnPacketReceived(object sender, PacketReceivedEventArgs e) => ProcessPacket(e.RecievedPacket);
         #endregion
         #endregion
     }
