@@ -25,6 +25,7 @@ namespace DofusPacketManager.Networking.Messages
         {
             DeserializeMessage(Reader);
             NetworkMessage_Deserialized(this, EventArgs.Empty);
+            OnDeserialized = null; //Unbind handlers
         }
         #endregion
         #region Protected Abstract
