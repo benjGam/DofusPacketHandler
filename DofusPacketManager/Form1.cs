@@ -18,25 +18,19 @@ namespace DofusPacketManager
         {
             NetworkManager nM = new NetworkManager();
             MessageManager k = MessageManager.Instance;
-            k.MessageBinder.On<ChatServerMessage>(Test);
+            k.MessageBinder.Bind<ChatServerMessage>(Test, "OnDeserialized");
             nM.StartSniffing();
         }
 
-        private object Test()
+        private void Test(object sender, EventArgs e)
         {
-            MessageBox.Show("J'affiche un test quand je reçoi le message");
-            return null;
+            ChatServerMessage k = (ChatServerMessage)sender;
+            this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"{k._content}\n"));
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             NetworkManager.Instance.StopSniffing();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            MessageBinder d = new MessageBinder();
-            d.On<ChatServerMessage>(Test);
         }
     }
 }
