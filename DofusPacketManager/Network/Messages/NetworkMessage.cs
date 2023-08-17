@@ -1,11 +1,44 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace DofusPacketManager.Networking.Messages
 {
     public abstract class NetworkMessage
     {
+        #region Properties
+        #region Custom Events Declarations
+        public EventHandler OnCreated;
+        public EventHandler OnDeserialized;
+        #endregion 
         public abstract ushort MessageID { get; }
         public abstract bool InstanceID { get; }
-        public abstract void Deserialize(IDataReader Reader);
+        #endregion
+        #region Constructors
+        public NetworkMessage() => OnCreated(this, EventArgs.Empty);
+        #endregion
+        #region Methods
+        #region Public Methods
+        public void Deserialize(IDataReader Reader)
+        {
+            DeserializeMessage(Reader);
+            OnDeserialized(this, EventArgs.Empty);
+        }
+        #endregion
+        #region Protected Abstract
+        protected abstract void DeserializeMessage(IDataReader Reader);
+        #endregion
+        #endregion
+        #region Custom Events
+        protected virtual void NetworkMessage_Deserialized(object sender, EventArgs e)
+        {
+            if (OnDeserialized == null) return;
+            OnDeserialized(this, e);
+        }
+        protected virtual void NetworkMessage_OnCreated(object sender, EventArgs e)
+        {
+            if (OnCreated == null) return;
+            OnCreated(this, e);
+        }
+        #endregion
     }
 }
