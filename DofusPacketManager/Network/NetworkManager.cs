@@ -5,6 +5,7 @@ using PacketDotNet;
 using System;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Net;
 
 namespace DofusPacketManager.Networking
 {
@@ -96,9 +97,26 @@ namespace DofusPacketManager.Networking
         {
             get => _ipToSniff;
             set {
-
+                IPAddress parsedIp;
+                if (IPAddress.TryParse(_ipToSniff, out parsedIp))
+                    _ipToSniff = value;
             }
         }
+
+        public int TargetedPort
+        {
+            get => _portToSniff; 
+            set {
+                if (value < 333 && value > 65535) return;
+                if (_Device.Started)
+                {
+                    StopSniffing();
+                    _portToSniff = value;
+                    StartSniffing();
+                }
+            }
+        }
+
         #endregion
     }
 }
