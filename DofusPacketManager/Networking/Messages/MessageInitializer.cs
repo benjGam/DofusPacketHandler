@@ -29,7 +29,7 @@ namespace DofusPacketManager.Networking.Messages
         }
 
         public ReadOnlyCollection<Func<object>> MessagesConstructors => _messagesConstructors.Values.ToList().AsReadOnly();
-        public T GetInstance<T>(ushort messageId) where T : class
+        public T GetInstance<T>(ushort messageId) where T : NetworkMessage
         {
             Func<object> targetedMessage = _messagesConstructors[messageId];
             return targetedMessage == null ? null : targetedMessage.Invoke() as T;
