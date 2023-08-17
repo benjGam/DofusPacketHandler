@@ -1,5 +1,6 @@
 ﻿using DofusPacketManager.Utils.IO;
 using System;
+using System.Threading;
 
 namespace DofusPacketManager.Networking.Messages
 {
@@ -15,8 +16,11 @@ namespace DofusPacketManager.Networking.Messages
         #endregion
         #region Constructors
         public NetworkMessage() {
-            if (OnCreated != null) 
-                OnCreated(this, EventArgs.Empty);
+            new Thread(() =>
+            {
+                Thread.Sleep(1);
+                NetworkMessage_OnCreated(this, EventArgs.Empty);
+            }).Start();
         }
         #endregion
         #region Methods
@@ -40,8 +44,8 @@ namespace DofusPacketManager.Networking.Messages
         }
         protected virtual void NetworkMessage_OnCreated(object sender, EventArgs e)
         {
-            if (OnCreated == null) return;
-            OnCreated(this, e);
+            if (OnCreated != null)
+                OnCreated(this, e);
         }
         #endregion
     }
