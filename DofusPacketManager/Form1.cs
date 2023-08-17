@@ -15,7 +15,7 @@ namespace DofusPacketManager
         private void button1_Click(object sender, EventArgs e)
         {
             NetworkManager nM = new NetworkManager();
-            nM.OnPacketReceived += NM_OnPacketReceived;
+            //nM.OnPacketReceived += NM_OnPacketReceived;
             nM.StartSniffing();
         }
 

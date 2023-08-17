@@ -74,17 +74,19 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Network\Messages\MessageDispatcher.cs" />
+    <Compile Include="Network\Messages\game\chat\ChatAbstractServerMessage.cs" />
+    <Compile Include="Network\Messages\game\chat\ChatServerMessage.cs" />
     <Compile Include="Network\Messages\MessageInitializer.cs" />
     <Compile Include="Network\Messages\MessageManager.cs" />
     <Compile Include="Network\Messages\NetworkMessage.cs" />
-    <Compile Include="Network\Messages\TestMessage.cs" />
     <Compile Include="Network\PacketParser.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\PacketArrivedEventArgs.cs" />
+    <Compile Include="Network\UncompleteNetworkMessage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Extensions\ConstuctorInfoExtensions.cs" />
+    <Compile Include="Utils\Extensions\TypeExtensions.cs" />
     <Compile Include="Utils\IPAddress.cs" />
     <Compile Include="Utils\IO\BigEndianReader.cs" />
     <Compile Include="Utils\IO\Binary64.cs" />
