@@ -17,11 +17,8 @@ namespace DofusPacketManager.Networking
         private ILiveDevice _Device = null;
         private MessageManager _messageManager;
         private Thread _sniffingThread;
-
         #region Custom Events Declaration
-
         public event EventHandler OnPacketReceived;
-
         #endregion
         #endregion
         #region Constructors
@@ -49,8 +46,6 @@ namespace DofusPacketManager.Networking
         {
             _messageManager = MessageManager.Instance; // Link message manager instance to Network manager
             _Device = CaptureDeviceList.Instance.ToList().Find((ILiveDevice Device) => Device.Description.ToLower().Contains("realtek")); // Get the real network device
-            _sniffingThread = new Thread(() => this.StartSniffing());
-            _sniffingThread.IsBackground = true;
         }
         private TcpPacket ParsePacketAsTCP(PacketCapture e)
         {
@@ -65,22 +60,32 @@ namespace DofusPacketManager.Networking
         #region Public Methods
         public void StartSniffing()
         {
-            if (!_Device.Started)
+            _sniffingThread = new Thread(() =>
             {
-                _Device.Open();
-                _Device.Filter = $"tcp port {_portToSniff}";
-                _Device.OnPacketArrival += Device_OnPacketArrival;
-                _Device.StartCapture();
-            }
+                if (!_Device.Started)
+                {
+                    _Device.Open();
+                    _Device.Filter = $"tcp port {_portToSniff}";
+                    _Device.OnPacketArrival += Device_OnPacketArrival;
+                    _Device.StartCapture();
+                }
+            });
+            _sniffingThread.IsBackground = true;
+            _sniffingThread.Start();
         }
         public void StopSniffing()
         {
-            if (_Device.Started)
+            _sniffingThread = new Thread(() =>
             {
-                _Device.StopCapture();
-                _Device.Close();
-                _Device.OnPacketArrival -= Device_OnPacketArrival;
-            }
+                if (_Device.Started)
+                {
+                    _Device.StopCapture();
+                    _Device.Close();
+                    _Device.OnPacketArrival -= Device_OnPacketArrival;
+                }
+            });
+            _sniffingThread.IsBackground = true;
+            _sniffingThread.Start();
         }
         #endregion
         #endregion
