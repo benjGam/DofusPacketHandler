@@ -1,5 +1,4 @@
 ﻿using DofusPacketManager.Utils;
-using System.Windows.Forms;
 
 namespace DofusPacketManager.Networking.Messages
 {
@@ -8,7 +7,8 @@ namespace DofusPacketManager.Networking.Messages
         private MessageInitializer _messageInitializer;
         public MessageManager()
         {
-            _messageInitializer = new MessageInitializer();
+            _messageInitializer = MessageInitializer.Instance;
         }
+        public MessageInitializer MessageInitializer => _messageInitializer;
     }
 }

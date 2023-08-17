@@ -1,5 +1,4 @@
-﻿using DofusPacketManager.Network;
-using DofusPacketManager.Network.Messages;
+﻿using DofusPacketManager.Network.Messages;
 using DofusPacketManager.Utils;
 using DofusPacketManager.Utils.IO;
 using PacketDotNet;
