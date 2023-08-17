@@ -1,4 +1,5 @@
-﻿using DofusPacketManager.Networking;
+﻿using DofusPacketManager.Network.Messages.game.chat;
+using DofusPacketManager.Networking;
 using DofusPacketManager.Networking.Messages;
 using System;
 using System.Windows.Forms;
@@ -15,13 +16,19 @@ namespace DofusPacketManager
         private void button1_Click(object sender, EventArgs e)
         {
             NetworkManager nM = new NetworkManager();
-            //nM.OnPacketReceived += NM_OnPacketReceived;
+            PacketParser.Instance.OnMessageRecieved += PacketParser_OnMessageRecieved;
             nM.StartSniffing();
         }
 
-        private void NM_OnPacketReceived(object sender, EventArgs e)
+        private void PacketParser_OnMessageRecieved(object sender, Network.Messages.NetworkMessageReceivedEventArgs e)
         {
-            this.Invoke(new MethodInvoker(() => richTextBox1.Text += "Packet recieved !\n"));
+            e.RecievedMessage.OnDeserialized += RecievedMessage_OnDeserialized;
+        }
+
+        private void RecievedMessage_OnDeserialized(object sender, EventArgs e)
+        {
+            ChatServerMessage d = (ChatServerMessage)sender;
+            this.Invoke(new MethodInvoker(() => richTextBox1.Text += $"Content : {d._content}\n"));
         }
 
         private void button2_Click(object sender, EventArgs e)
