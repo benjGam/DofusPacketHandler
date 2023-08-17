@@ -29,7 +29,7 @@ namespace DofusPacketManager.Networking.Messages
         {
             NetworkMessage recievedMessage = MessageInitializer.Instance.GetInstance<NetworkMessage>(messageInformations.MessageId);
             if (recievedMessage == null) return null;
-            OnPacketParsed(this, new NetworkMessageReceivedEventArgs(recievedMessage));
+            PacketParser_OnPacketParsed(this, new NetworkMessageReceivedEventArgs(recievedMessage));
             return recievedMessage;
         }
         #endregion
@@ -62,7 +62,7 @@ namespace DofusPacketManager.Networking.Messages
         }
         #endregion
         #region Events Handler
-        private void NetworkManager_OnPacketReceived(object sender, PacketReceivedEventArgs e) => ProcessPacket(e.RecievedPacket);
+        private void NetworkManager_OnPacketReceived(object sender, PacketReceivedEventArgs e) => ProcessPacket(e.Packet);
         #endregion
         #endregion
     }

@@ -11,6 +11,6 @@ namespace DofusPacketManager.Networking
         {
             _packet = recievedPacket;
         }
-        public TcpPacket RecievedPacket => _packet;
+        public TcpPacket Packet => _packet;
     }
 }
