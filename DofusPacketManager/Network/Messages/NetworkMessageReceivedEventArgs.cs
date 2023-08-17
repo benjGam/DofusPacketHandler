@@ -1,5 +1,4 @@
-﻿using DofusPacketManager.Networking.Messages;
-using System;
+﻿using System;
 
 namespace DofusPacketManager.Network.Messages
 {

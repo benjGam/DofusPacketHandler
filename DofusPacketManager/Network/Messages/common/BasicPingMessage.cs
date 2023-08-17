@@ -1,10 +1,4 @@
-﻿using DofusPacketManager.Networking.Messages;
-using DofusPacketManager.Utils.IO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DofusPacketManager.Utils.IO;
 
 namespace DofusPacketManager.Network.Messages.common
 {

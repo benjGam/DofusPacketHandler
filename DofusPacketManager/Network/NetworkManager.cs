@@ -5,9 +5,9 @@ using PacketDotNet;
 using System;
 using System.Threading;
 using System.Net;
-using DofusPacketManager.Networking.Messages;
+using DofusPacketManager.Network.Messages;
 
-namespace DofusPacketManager.Networking
+namespace DofusPacketManager.Network
 {
     public class NetworkManager : Singleton<NetworkManager>
     {

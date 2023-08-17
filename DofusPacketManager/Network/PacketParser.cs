@@ -1,10 +1,9 @@
-﻿using DofusPacketManager.Network.Messages;
-using DofusPacketManager.Utils;
+﻿using DofusPacketManager.Utils;
 using DofusPacketManager.Utils.IO;
 using PacketDotNet;
 using System;
 
-namespace DofusPacketManager.Networking.Messages
+namespace DofusPacketManager.Network.Messages
 {
     public class PacketParser : Singleton<PacketParser>
     {

@@ -1,8 +1,7 @@
-﻿using DofusPacketManager.Network.Messages;
+﻿using DofusPacketManager.Network;
+using DofusPacketManager.Network.Messages;
 using DofusPacketManager.Network.Messages.common;
 using DofusPacketManager.Network.Messages.game.chat;
-using DofusPacketManager.Networking;
-using DofusPacketManager.Networking.Messages;
 using System;
 using System.Windows.Forms;
 

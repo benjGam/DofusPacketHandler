@@ -1,5 +1,4 @@
-﻿using DofusPacketManager.Networking.Messages;
-using DofusPacketManager.Utils.IO;
+﻿using DofusPacketManager.Utils.IO;
 
 namespace DofusPacketManager.Network.Messages.game.chat
 {

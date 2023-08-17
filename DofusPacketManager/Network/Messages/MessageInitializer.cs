@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 
-namespace DofusPacketManager.Networking.Messages
+namespace DofusPacketManager.Network.Messages
 {
     public class MessageInitializer : Singleton<MessageInitializer>
     {
