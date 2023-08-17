@@ -16,7 +16,6 @@ namespace DofusPacketManager.Networking
         private int _portToSniff = 5555;
         private ILiveDevice _Device = null;
         private MessageManager _messageManager;
-        private PacketParser _packetParser;
         private Thread _sniffingThread;
         #region Custom Events Declaration
         public event EventHandler<PacketArrivedEventArgs> OnPacketReceived;
@@ -45,8 +44,7 @@ namespace DofusPacketManager.Networking
         #region Private Methods
         private void Init()
         {
-            _packetParser = PacketParser.Instance;
-            _messageManager = MessageManager.Instance; // Link message manager instance to Network manager
+            _messageManager = MessageManager.Instance;
             _Device = CaptureDeviceList.Instance.ToList().Find((ILiveDevice Device) => Device.Description.ToLower().Contains("realtek")); // Get the real network device
             _Device.OnPacketArrival += Device_OnPacketArrival;
         }
@@ -127,8 +125,6 @@ namespace DofusPacketManager.Networking
             }
         }
         public MessageManager MessageManager => _messageManager;
-        public PacketParser PacketParser => _packetParser;
-        
         #endregion
     }
 }
