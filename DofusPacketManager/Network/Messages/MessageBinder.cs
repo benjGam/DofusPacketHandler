@@ -1,5 +1,4 @@
-﻿using DofusPacketManager.Networking.Messages;
-using DofusPacketManager.Utils;
+﻿using DofusPacketManager.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -12,7 +11,7 @@ namespace DofusPacketManager.Network.Messages
 
         public MessageBinder() => PacketParser.Instance.MessageReceived += PacketParser_OnMessageRecieved;
 
-        public void Bind<T>(EventHandler handler, NetworkMessageEventEnum eventName) where T : NetworkMessage
+        public void On<T>(EventHandler handler, NetworkMessageEventEnum eventName) where T : NetworkMessage
         {
             if (!_bindedNetworkMessagesTypes.ContainsKey(typeof(T)))
                 _bindedNetworkMessagesTypes.Add(typeof(T), new EventKeyPair(eventName.ToString(), handler));
