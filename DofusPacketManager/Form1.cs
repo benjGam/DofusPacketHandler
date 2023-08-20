@@ -1,4 +1,4 @@
-﻿using DofusPacketManager.Network;
+﻿using DofusPacketManager.Network.Types;
 using System;
 using System.Windows.Forms;
 
@@ -12,7 +12,12 @@ namespace DofusPacketManager
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            NetworkManager.Instance.StopSniffing();
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
