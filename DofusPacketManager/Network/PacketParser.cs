@@ -64,7 +64,7 @@ namespace DofusPacketManager.Network.Messages
         }
         protected virtual void PacketParser_OnMessageInformationsExtracted(object sender, NetworkMessageInformationExtractedEventArgs e)
         {
-            if (MessageReceived != null) MessageInformationExtracted(this, e);
+            if (MessageInformationExtracted != null) MessageInformationExtracted(this, e);
         }
         #endregion
         #region Events Handler

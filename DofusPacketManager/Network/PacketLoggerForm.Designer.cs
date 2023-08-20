@@ -1,4 +1,4 @@
-﻿namespace DofusPacketManager.Network
+﻿namespace DofusPacketManager.Network.Debugging
 {
     partial class PacketLoggerForm
     {
@@ -37,12 +37,14 @@
             // 
             // clearLogsButton
             // 
+            this.clearLogsButton.Enabled = false;
             this.clearLogsButton.Location = new System.Drawing.Point(314, 299);
             this.clearLogsButton.Name = "clearLogsButton";
             this.clearLogsButton.Size = new System.Drawing.Size(275, 23);
             this.clearLogsButton.TabIndex = 0;
             this.clearLogsButton.Text = "Clear Logs";
             this.clearLogsButton.UseVisualStyleBackColor = true;
+            this.clearLogsButton.Click += new System.EventHandler(this.clearLogsButton_Click);
             // 
             // packetsLogsTextBox
             // 
@@ -56,12 +58,14 @@
             // 
             // copyLogsButton
             // 
+            this.copyLogsButton.Enabled = false;
             this.copyLogsButton.Location = new System.Drawing.Point(314, 328);
             this.copyLogsButton.Name = "copyLogsButton";
             this.copyLogsButton.Size = new System.Drawing.Size(275, 23);
             this.copyLogsButton.TabIndex = 2;
             this.copyLogsButton.Text = "Copy logs";
             this.copyLogsButton.UseVisualStyleBackColor = true;
+            this.copyLogsButton.Click += new System.EventHandler(this.copyLogsButton_Click);
             // 
             // startLoggingButton
             // 
@@ -82,6 +86,7 @@
             this.stopLoggingButton.TabIndex = 4;
             this.stopLoggingButton.Text = "Stop logging";
             this.stopLoggingButton.UseVisualStyleBackColor = true;
+            this.stopLoggingButton.Click += new System.EventHandler(this.stopLoggingButton_Click);
             // 
             // PacketLoggerForm
             // 
@@ -95,6 +100,7 @@
             this.Controls.Add(this.clearLogsButton);
             this.Name = "PacketLoggerForm";
             this.Text = "PacketLoggerForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PacketLoggerForm_FormClosing);
             this.ResumeLayout(false);
 
         }
