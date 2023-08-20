@@ -15,7 +15,7 @@ namespace DofusPacketManager.Network.Messages
         public MessageInitializer() => Init();
         private void Init()
         {
-            foreach (Type Type in Assembly.GetExecutingAssembly().GetTypes())
+            foreach (Type Type in Assembly.GetEntryAssembly().GetTypes())
             {
                 if (Type.GetOldestParent() != typeof(NetworkMessage) || Type.IsAbstract) continue;
                     RegisterConstructor(Type);
