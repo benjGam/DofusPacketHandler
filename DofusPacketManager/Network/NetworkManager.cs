@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Net;
 using DofusPacketManager.Network.Messages;
+using System.Data;
 
 namespace DofusPacketManager.Network
 {
@@ -17,6 +18,7 @@ namespace DofusPacketManager.Network
         private ILiveDevice _Device = null;
         private MessageManager _messageManager;
         private Thread _sniffingThread;
+        private IDataReader _recievedBuffer;
         #region Custom Events Declaration
         public event EventHandler<PacketReceivedEventArgs> PacketReceived;
         #endregion
