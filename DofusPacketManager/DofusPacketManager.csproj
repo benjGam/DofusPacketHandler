@@ -71,7 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Network\Messages\common\BasicPingMessage.cs" />
     <Compile Include="Network\Messages\CustomEventArgs\NetworkMessageInformationExtractedEventArgs.cs" />
     <Compile Include="Network\Messages\MessageBinder.cs" />
     <Compile Include="Network\Messages\NetworkMessageInformations.cs" />
