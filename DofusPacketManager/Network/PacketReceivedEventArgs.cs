@@ -1,7 +1,7 @@
 ﻿using System;
 using PacketDotNet;
 
-namespace DofusPacketManager.Networking
+namespace DofusPacketManager.Network
 {
     public class PacketReceivedEventArgs : EventArgs
     {

@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PacketDotNet, Version=1.4.7.0, Culture=neutral, PublicKeyToken=451414c7667b2a58, processorArchitecture=MSIL">
       <HintPath>..\packages\PacketDotNet.1.4.7\lib\net47\PacketDotNet.dll</HintPath>
@@ -74,9 +77,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Network\Messages\common\BasicPingMessage.cs" />
-    <Compile Include="Network\Messages\game\chat\ChatAbstractServerMessage.cs" />
-    <Compile Include="Network\Messages\game\chat\ChatServerMessage.cs" />
     <Compile Include="Network\Messages\MessageBinder.cs" />
     <Compile Include="Network\Messages\NetworkMessageInformations.cs" />
     <Compile Include="Network\Messages\MessageInitializer.cs" />

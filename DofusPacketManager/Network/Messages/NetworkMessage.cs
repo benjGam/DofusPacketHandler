@@ -2,7 +2,7 @@
 using System;
 using System.Threading;
 
-namespace DofusPacketManager.Networking.Messages
+namespace DofusPacketManager.Network.Messages
 {
     public abstract class NetworkMessage
     {

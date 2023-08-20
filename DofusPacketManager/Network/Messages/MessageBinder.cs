@@ -1,5 +1,4 @@
-﻿using DofusPacketManager.Networking.Messages;
-using DofusPacketManager.Utils;
+﻿using DofusPacketManager.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
