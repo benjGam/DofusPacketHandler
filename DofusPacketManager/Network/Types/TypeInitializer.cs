@@ -14,7 +14,7 @@ namespace DofusPacketManager.Network.Types
         public TypeInitializer() => Init();
         private void Init()
         {
-            foreach (Type Type in Assembly.GetExecutingAssembly().GetTypes())
+            foreach (Type Type in Assembly.GetEntryAssembly().GetTypes())
             {
                 if (Type.GetOldestParent() != typeof(NetworkType) || Type.IsAbstract) continue;
                 RegisterConstructor(Type);

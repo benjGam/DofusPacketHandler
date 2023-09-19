@@ -124,6 +124,7 @@ namespace DofusPacketManager.Network
             }
         }
         public MessageManager MessageManager => _messageManager;
+        public bool Sniffing => _Device == null ? false : _Device.Started;
         #endregion
     }
 }

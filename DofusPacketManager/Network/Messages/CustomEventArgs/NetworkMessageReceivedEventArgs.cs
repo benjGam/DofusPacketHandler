@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DofusPacketManager.Network.Messages
+
+namespace DofusPacketManager.Network.Messages.CustomEventArgs
 {
     public class NetworkMessageReceivedEventArgs : EventArgs
     {

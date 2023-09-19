@@ -71,18 +71,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network\Messages\CustomEventArgs\NetworkMessageInformationExtractedEventArgs.cs" />
     <Compile Include="Network\Messages\MessageBinder.cs" />
     <Compile Include="Network\Messages\NetworkMessageInformations.cs" />
     <Compile Include="Network\Messages\MessageInitializer.cs" />
     <Compile Include="Network\Messages\MessageManager.cs" />
     <Compile Include="Network\Messages\NetworkMessage.cs" />
-    <Compile Include="Network\Messages\NetworkMessageReceivedEventArgs.cs" />
+    <Compile Include="Network\Messages\CustomEventArgs\NetworkMessageReceivedEventArgs.cs" />
+    <Compile Include="Network\PacketLoggerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Network\PacketLoggerForm.Designer.cs">
+      <DependentUpon>PacketLoggerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Network\PacketParser.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\PacketReceivedEventArgs.cs" />
     <Compile Include="Network\Types\NetworkType.cs" />
     <Compile Include="Network\Types\TypeInitializer.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\EventKeyPair.cs" />
     <Compile Include="Utils\Extensions\ConstuctorInfoExtensions.cs" />
     <Compile Include="Utils\Extensions\TypeExtensions.cs" />
@@ -97,6 +111,9 @@
     <Compile Include="Utils\NetworkMessageEventEnum.cs" />
     <Compile Include="Utils\PacketArrivedEventArgs.cs" />
     <Compile Include="Utils\Singleton.cs" />
+    <EmbeddedResource Include="Network\PacketLoggerForm.resx">
+      <DependentUpon>PacketLoggerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -106,6 +123,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

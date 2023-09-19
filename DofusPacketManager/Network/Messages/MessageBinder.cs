@@ -1,4 +1,5 @@
 ﻿using DofusPacketManager.Utils;
+using DofusPacketManager.Network.Messages.CustomEventArgs;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

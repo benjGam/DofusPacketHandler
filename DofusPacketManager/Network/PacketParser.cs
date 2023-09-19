@@ -1,5 +1,6 @@
 ﻿using DofusPacketManager.Utils;
 using DofusPacketManager.Utils.IO;
+using DofusPacketManager.Network.Messages.CustomEventArgs;
 using PacketDotNet;
 using System;
 
@@ -9,6 +10,7 @@ namespace DofusPacketManager.Network.Messages
     {
         #region Event Handler Declaration
         public event EventHandler<NetworkMessageReceivedEventArgs> MessageReceived;
+        public event EventHandler<NetworkMessageInformationExtractedEventArgs> MessageInformationExtracted;
         #endregion
         #region Constructors
         public PacketParser() => Init();
@@ -21,6 +23,7 @@ namespace DofusPacketManager.Network.Messages
             IDataReader Reader = new BigEndianReader(TcpPacket.PayloadData);
             NetworkMessageInformations messageInformations = GetMessageInformations(Reader);
             NetworkMessage recievedMessage = ParsePacketAsMessage(messageInformations);
+            PacketParser_OnMessageInformationsExtracted(this, new NetworkMessageInformationExtractedEventArgs(messageInformations, recievedMessage));
             if (recievedMessage != null)
                 recievedMessage.Deserialize(Reader);
         }
@@ -58,6 +61,10 @@ namespace DofusPacketManager.Network.Messages
         protected virtual void PacketParser_OnPacketParsed(object sender, NetworkMessageReceivedEventArgs e) 
         {
             if (MessageReceived != null) MessageReceived(this, e);
+        }
+        protected virtual void PacketParser_OnMessageInformationsExtracted(object sender, NetworkMessageInformationExtractedEventArgs e)
+        {
+            if (MessageInformationExtracted != null) MessageInformationExtracted(this, e);
         }
         #endregion
         #region Events Handler
