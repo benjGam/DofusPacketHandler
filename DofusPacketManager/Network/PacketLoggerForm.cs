@@ -31,7 +31,7 @@ namespace DofusPacketManager.Network.Debugging
                 messageTypeName = "Unrecognized";
             else
                 messageTypeName = e.Message.GetType().Name;
-            packetsLogsTextBox.Invoke(new MethodInvoker(() => packetsLogsTextBox.AppendText($"PacketID: {e.Informations.MessageId} -> {messageTypeName} Message\n")));
+            packetsLogsTextBox.Invoke(new MethodInvoker(() => packetsLogsTextBox.AppendText($"PacketID: {e.Informations.MessageId} : {messageTypeName} Message\n")));
         }
 
         private void packetsLogsTextBox_TextChanged(object sender, System.EventArgs e)
