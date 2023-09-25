@@ -54,10 +54,7 @@ namespace DofusPacketManager.Network.Debugging
             stopLoggingButton.Enabled = false;
         }
 
-        private void clearLogsButton_Click(object sender, System.EventArgs e)
-        {
-            packetsLogsTextBox.Clear();
-        }
+        private void clearLogsButton_Click(object sender, System.EventArgs e) => packetsLogsTextBox.Clear();
 
         private void copyLogsButton_Click(object sender, System.EventArgs e)
         {
