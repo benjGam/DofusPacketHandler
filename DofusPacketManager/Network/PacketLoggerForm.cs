@@ -58,9 +58,7 @@ namespace DofusPacketManager.Network.Debugging
 
         private void copyLogsButton_Click(object sender, System.EventArgs e) => Clipboard.SetText(packetsLogsTextBox.Text);
 
-        private void PacketLoggerForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            PacketParser.Instance.MessageInformationExtracted -= PacketParser_MessageInformationExtracted;
-        }
+        private void PacketLoggerForm_FormClosing(object sender, FormClosingEventArgs e) => PacketParser.Instance.MessageInformationExtracted -= PacketParser_MessageInformationExtracted;
+    
     }
 }
