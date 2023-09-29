@@ -7,10 +7,7 @@ namespace DofusPacketManager.Network
     {
         private TcpPacket _packet;
 
-        public PacketReceivedEventArgs(TcpPacket recievedPacket)
-        {
-            _packet = recievedPacket;
-        }
+        public PacketReceivedEventArgs(TcpPacket recievedPacket) => _packet = recievedPacket;
         public TcpPacket Packet => _packet;
     }
 }
