@@ -20,22 +20,15 @@ namespace DofusPacketManager.Network.Messages
                 _bindedNetworkMessagesTypes[typeof(T)].AddKeyPair(eventName.ToString(), handler);
         }
 
-        public bool Unbind<T>() where T : NetworkMessage
+        public void Unbind<T>() where T : NetworkMessage
         {
             if (_bindedNetworkMessagesTypes.ContainsKey(typeof(T)))
-            {
                 _bindedNetworkMessagesTypes.Remove(typeof(T));
-                return true;
-            }
-            return false;
         }
-        public bool Unbind<T>(NetworkMessageEventEnum eventName) where T : NetworkMessage
+        public void Unbind<T>(NetworkMessageEventEnum eventName) where T : NetworkMessage
         {
             if (_bindedNetworkMessagesTypes.ContainsKey(typeof(T)))
-            {
-                return _bindedNetworkMessagesTypes[typeof(T)].RemoveKeyPair(eventName.ToString());
-            }
-            return false;
+                _bindedNetworkMessagesTypes[typeof(T)].RemoveKeyPair(eventName.ToString());
         }
 
         private void PacketParser_OnMessageRecieved(object sender, NetworkMessageReceivedEventArgs e)
