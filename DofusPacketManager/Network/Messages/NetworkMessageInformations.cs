@@ -6,6 +6,7 @@ namespace DofusPacketManager.Network.Messages
     {
         private ushort _messageId;
         private int _length;
+
         public NetworkMessageInformations(ushort messageId, int Length, ref IDataReader Reader) 
         {
             _messageId = messageId;
