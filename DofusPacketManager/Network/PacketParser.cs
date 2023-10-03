@@ -35,7 +35,7 @@ namespace DofusPacketManager.Network.Messages
             return recievedMessage;
         }
         #endregion
-        #region Building Message Informations
+        #region Message Informations
         private NetworkMessageInformations GetMessageInformations(IDataReader Reader)
         {
             ushort staticHeader = GetStaticHeader(Reader);
