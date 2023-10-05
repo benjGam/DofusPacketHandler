@@ -67,7 +67,7 @@ namespace DofusPacketManager.Network.Messages
             if (MessageInformationExtracted != null) MessageInformationExtracted(this, e);
         }
         #endregion
-        #region Events Handler
+        #region Events Handler Section
         private void NetworkManager_OnPacketReceived(object sender, PacketReceivedEventArgs e) => ProcessPacket(e.Packet);
         #endregion
         #endregion
