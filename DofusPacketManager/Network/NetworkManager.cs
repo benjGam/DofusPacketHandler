@@ -11,7 +11,7 @@ namespace DofusPacketManager.Network
 {
     public class NetworkManager : Singleton<NetworkManager>
     {
-        #region Internal Properties 
+        #region Internal Properties
         private string _ipToSniff = string.Empty;
         private int _portToSniff = 5555;
         private ILiveDevice _Device = null;
