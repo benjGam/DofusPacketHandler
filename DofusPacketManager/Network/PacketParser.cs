@@ -15,7 +15,7 @@ namespace DofusPacketManager.Network.Messages
         #region Constructors
         public PacketParser() => Init();
         #endregion
-        #region Methods
+        #region Private Methods
         #region Processing Packet
         private void Init() => NetworkManager.Instance.PacketReceived += NetworkManager_OnPacketReceived;
         private void ProcessPacket(TcpPacket TcpPacket)
