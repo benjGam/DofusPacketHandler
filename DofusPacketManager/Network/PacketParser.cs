@@ -12,7 +12,7 @@ namespace DofusPacketManager.Network.Messages
         public event EventHandler<NetworkMessageReceivedEventArgs> MessageReceived;
         public event EventHandler<NetworkMessageInformationExtractedEventArgs> MessageInformationExtracted;
         #endregion
-        #region Constructors
+        #region Constructor
         public PacketParser() => Init();
         #endregion
         #region Private Methods
