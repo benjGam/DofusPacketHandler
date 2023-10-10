@@ -16,7 +16,7 @@ namespace DofusPacketManager.Network.Debugging
         {
             if (!networkManagerInstance.Sniffing)
             {
-                MessageBox.Show("Le programme ne sniffe pas", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Le programme ne sniffe pas !", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             PacketParser.Instance.MessageInformationExtracted += PacketParser_MessageInformationExtracted;
