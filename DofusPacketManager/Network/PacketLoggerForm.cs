@@ -60,5 +60,10 @@ namespace DofusPacketManager.Network.Debugging
 
         private void PacketLoggerForm_FormClosing(object sender, FormClosingEventArgs e) => PacketParser.Instance.MessageInformationExtracted -= PacketParser_MessageInformationExtracted;
     
+        private void ToggleButtons() {
+            startLoggingButton.Enabled = !startLoggingButton.Enabled;
+            stopLoggingButton.Enabled = !stopLoggingButton.Enabled;
+        } 
+
     }
 }
