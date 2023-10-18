@@ -50,8 +50,7 @@ namespace DofusPacketManager.Network.Debugging
                 return;
             }
             PacketParser.Instance.MessageInformationExtracted -= PacketParser_MessageInformationExtracted;
-            startLoggingButton.Enabled = true;
-            stopLoggingButton.Enabled = false;
+            ToggleButtons();
         }
 
         private void clearLogsButton_Click(object sender, System.EventArgs e) => packetsLogsTextBox.Clear();
